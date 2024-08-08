@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-protocol ToDoListViewControllerProtocol {
+protocol ToDoListViewControllerProtocol: AnyObject {
     var presenter: ToDoListPresenterProtocol? {get set}
     func updatePicker(pickerInfo: [ToDoListEntity])
 }
 
-protocol ToDoListPresenterProtocol {
+protocol ToDoListPresenterProtocol: AnyObject {
     var view: ToDoListViewControllerProtocol? {get set}
     var interactor: toDoListInteractorProtocol? {get set}
     var router: toDoListRouterProtocol? {get set}
@@ -25,12 +25,12 @@ protocol ToDoListPresenterProtocol {
     func convertSecondsToMinutesAndSecondsString(seconds: Int) -> String
 }
 
-protocol toDoListInteractorProtocol {
+protocol toDoListInteractorProtocol: AnyObject {
     var presenter: ToDoListPresenterProtocol? {get set}
     func getTask()
     func storeTask(tasks: [ToDoListEntity])
 }
 
-protocol toDoListRouterProtocol {
+protocol toDoListRouterProtocol: AnyObject {
     static func createModule() -> UIViewController
 }

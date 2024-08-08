@@ -9,7 +9,7 @@ import Foundation
 import UserNotifications
 
 class ToDoListPresenter: ToDoListPresenterProtocol {
-    var view: ToDoListViewControllerProtocol?
+    weak var view: ToDoListViewControllerProtocol?
     
     var interactor: toDoListInteractorProtocol?
     

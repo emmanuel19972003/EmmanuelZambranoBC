@@ -102,23 +102,32 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
     @objc func updateTimer() {
         if timeRemaining > 0 {
             timeRemaining -= 1
-            updateTimerLabel(seconds: timeRemaining)
+            DispatchQueue.main.async {
+                self.updateTimerLabel(seconds: self.timeRemaining)
+            }
         } else {
             timer?.invalidate()
         }
     }
     func updatePicker(pickerInfo: [ToDoListEntity]) {
-        pcikerData = pickerInfo
-        taskPicker.reloadAllComponents()
+        DispatchQueue.main.async {
+            self.pcikerData = pickerInfo
+            self.taskPicker.reloadAllComponents()
+        }
+        
     }
     
     func addItemToPicker(pickerInfo: ToDoListEntity) {
-        pcikerData.append(pickerInfo)
-        taskPicker.reloadAllComponents()
+        DispatchQueue.main.async {
+            self.pcikerData.append(pickerInfo)
+            self.taskPicker.reloadAllComponents()
+        }
     }
     
     func updateDescription(description: String) {
-        descriptionLabel.text = description
+        DispatchQueue.main.async {
+            self.descriptionLabel.text = description
+        }
     }
     
     func storeTask() {

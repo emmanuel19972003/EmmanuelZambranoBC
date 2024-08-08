@@ -9,7 +9,7 @@ import Foundation
 
 
 class toDoListInteractor: toDoListInteractorProtocol {
-    var presenter: ToDoListPresenterProtocol?
+    weak var presenter: ToDoListPresenterProtocol?
     let defaults = UserDefaults.standard
     
     func getTask() {
