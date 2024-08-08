@@ -15,7 +15,7 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
     
     var timer: Timer?
     var timeRemaining = 300
-    
+    //MARK: view components
     lazy var titleLabel: UILabel = {
         let view = UILabel()
         view.text = "To do list"
@@ -68,7 +68,7 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+    //MARK: live cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -88,7 +88,7 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
     override func viewDidAppear(_ animated: Bool) {
         presenter?.requestNotificationPermission()
     }
-    
+    //MARK: update UI funcs
     @objc func addButtonTapped() {
         let addTask = AddTaskViewController()
         addTask.delegate = self
@@ -129,7 +129,7 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
         let time = presenter?.convertSecondsToMinutesAndSecondsString(seconds: seconds)
         timeLeft.text = time
     }
-    
+    //MARK: view Constraints
     private func viewComponents() {
         view.addSubview(titleLabel)
         view.addSubview(addButton)
@@ -197,7 +197,7 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
         ])
     }
 }
-
+// MARK: View extensions
 extension ToDoListViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

@@ -14,7 +14,7 @@ protocol AddTaskProtocol {
 class AddTaskViewController: UIViewController {
     
     var delegate: AddTaskProtocol?
-    
+    //MARK: view components
     lazy var stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -66,7 +66,7 @@ class AddTaskViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-   
+    
     lazy var saveButton: UIButton = {
         let view = UIButton()
         view.addTarget(self, action:#selector(self.saveTask), for: .touchUpInside)
@@ -78,6 +78,8 @@ class AddTaskViewController: UIViewController {
         return view
     }()
     
+    
+    //MARK: live cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(stackView)
@@ -85,7 +87,43 @@ class AddTaskViewController: UIViewController {
         stackViewConstraint()
         view.backgroundColor = .white
     }
+    //MARK: update UI funcs
+    @objc
+    func saveTask() {
+        guard let name = taskNameTextField.text,
+              let description = taskDescriptionTextField.text else {
+            return
+        }
+        if !checkValidFiles(name: name, description: description) {
+            return
+        }
+        
+        let task = ToDoListEntity(name: name, description: description)
+        delegate?.addNewTask(task: task)
+        navigationController?.popToRootViewController(animated: true)
+        
+    }
     
+    func checkValidFiles(name: String, description: String) -> Bool {
+        if name.isEmpty {
+            showAlert(title: "Title can't be empty", message: "Add a title to save the task")
+            return false
+        }
+        if  description.isEmpty {
+            showAlert(title: "Description can't be empty", message: "Add a Description to save the task")
+            return false
+        }
+        return true
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    //MARK: view Constraints
     private func fillStackView() {
         stackView.addArrangedSubview(taskNameLabel)
         stackView.addArrangedSubview(taskNameTextField)
@@ -104,33 +142,6 @@ class AddTaskViewController: UIViewController {
         ])
         
     }
-    
-    @objc
-    func saveTask() {
-        guard let name = taskNameTextField.text,
-              let description = taskDescriptionTextField.text else {
-            return
-        }
-        if name.isEmpty {
-            showAlert(title: "Title can't be empty", message: "Add a title to save the task")
-            return
-        }
-        if  description.isEmpty {
-            showAlert(title: "Description can't be empty", message: "Add a Description to save the task")
-            return
-        }
-        let task = ToDoListEntity(name: name, description: description)
-        delegate?.addNewTask(task: task)
-        navigationController?.popToRootViewController(animated: true)
-        
-    }
-    
-    func showAlert(title: String, message: String) {
-           let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-           let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-           alertController.addAction(okAction)
-           present(alertController, animated: true, completion: nil)
-       }
 }
 
 #Preview {
