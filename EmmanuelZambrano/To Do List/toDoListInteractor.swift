@@ -8,7 +8,7 @@
 import Foundation
 
 
-class toDoListInteractor: toDoListInteractorProtocol {
+final class toDoListInteractor: toDoListInteractorProtocol {
     weak var presenter: ToDoListPresenterProtocol?
     let defaults = UserDefaults.standard
     

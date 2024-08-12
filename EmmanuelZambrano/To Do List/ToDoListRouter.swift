@@ -7,7 +7,7 @@
 
 import UIKit
 
-class toDoListRouter: toDoListRouterProtocol {
+final class toDoListRouter: toDoListRouterProtocol {
     
     static func createModule() -> UIViewController {
         let view = ToDoListViewController()

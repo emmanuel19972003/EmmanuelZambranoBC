@@ -11,12 +11,12 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
     
     var presenter: ToDoListPresenterProtocol?
     
-    var pcikerData: [ToDoListEntity] = []
+    private var pcikerData: [ToDoListEntity] = []
     
     var timer: Timer?
     var timeRemaining = 300
     //MARK: view components
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let view = UILabel()
         view.text = "To do list"
         view.textAlignment = .center
@@ -26,7 +26,7 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
         return view
     }()
     
-    lazy var addButton: UIImageView = {
+    private lazy var addButton: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(systemName: "plus.circle")
         let tap = UITapGestureRecognizer(target: self, action: #selector(addButtonTapped))
@@ -36,7 +36,7 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
         return view
     }()
     
-    lazy var timeLeft: UILabel = {
+    private lazy var timeLeft: UILabel = {
         let view = UILabel()
         view.textColor = .black
         view.text = "5:43"
@@ -45,7 +45,7 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
         return view
     }()
     
-    lazy var taskPicker: UIPickerView = {
+    private lazy var taskPicker: UIPickerView = {
         let view = UIPickerView()
         view.delegate = self
         view.dataSource = self
@@ -53,7 +53,7 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
         return view
     }()
     
-    lazy var descriptionTitleLabel: UILabel = {
+    private lazy var descriptionTitleLabel: UILabel = {
         let view = UILabel()
         view.font = UIFont.boldSystemFont(ofSize: 25.0)
         view.text = "Description: "
@@ -62,7 +62,7 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
         return view
     }()
     
-    lazy var descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let view = UILabel()
         view.textColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -109,6 +109,7 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
             timer?.invalidate()
         }
     }
+    @inline(__always)
     func updatePicker(pickerInfo: [ToDoListEntity]) {
         DispatchQueue.main.async {
             self.pcikerData = pickerInfo
@@ -117,13 +118,14 @@ final class ToDoListViewController: UIViewController, ToDoListViewControllerProt
         
     }
     
+    @inline(__always)
     func addItemToPicker(pickerInfo: ToDoListEntity) {
         DispatchQueue.main.async {
             self.pcikerData.append(pickerInfo)
             self.taskPicker.reloadAllComponents()
         }
     }
-    
+    @inline(__always)
     func updateDescription(description: String) {
         DispatchQueue.main.async {
             self.descriptionLabel.text = description

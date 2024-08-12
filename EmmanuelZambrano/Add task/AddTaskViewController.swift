@@ -11,11 +11,11 @@ protocol AddTaskProtocol {
     func addNewTask(task: ToDoListEntity)
 }
 
-class AddTaskViewController: UIViewController {
+final class AddTaskViewController: UIViewController {
     
     var delegate: AddTaskProtocol?
     //MARK: view components
-    lazy var stackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.spacing = 35
@@ -23,7 +23,7 @@ class AddTaskViewController: UIViewController {
         return view
     }()
     
-    lazy var taskNameLabel: UILabel = {
+    private lazy var taskNameLabel: UILabel = {
         let view = UILabel()
         view.text = "task Name"
         view.textAlignment = .center
@@ -34,7 +34,7 @@ class AddTaskViewController: UIViewController {
         return view
     }()
     
-    lazy var taskNameTextField: UITextField = {
+    private lazy var taskNameTextField: UITextField = {
         let view = UITextField()
         view.layer.cornerRadius = 5
         view.layer.borderWidth = 1.0
@@ -45,7 +45,7 @@ class AddTaskViewController: UIViewController {
         return view
     }()
     
-    lazy var descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let view = UILabel()
         view.text = "Task Description"
         view.textAlignment = .center
@@ -56,7 +56,7 @@ class AddTaskViewController: UIViewController {
         return view
     }()
     
-    lazy var taskDescriptionTextField: UITextField = {
+    private lazy var taskDescriptionTextField: UITextField = {
         let view = UITextField()
         view.layer.cornerRadius = 5
         view.layer.borderWidth = 1.0
@@ -67,7 +67,7 @@ class AddTaskViewController: UIViewController {
         return view
     }()
     
-    lazy var saveButton: UIButton = {
+    private lazy var saveButton: UIButton = {
         let view = UIButton()
         view.addTarget(self, action:#selector(self.saveTask), for: .touchUpInside)
         view.setTitle("Save", for: .normal)
